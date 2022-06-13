@@ -1,9 +1,5 @@
-import BoardRow from "./BoardRow";
-import { useState, useCallback, useEffect, useRef, KeyboardEvent } from "react";
-import ColouredBoardRow from "./ColouredBoardRow";
+import { useState, useEffect, useRef } from "react";
 import GameBoard from "./GameBoard";
-import usePastGuesses from "../hooks/usePastGuesses";
-import { parse } from "path";
 import Keyboard from "./Keyboard";
 import { isValidGuess } from "../utils//gameHelpers";
 const Game: React.FC<{
@@ -12,21 +8,25 @@ const Game: React.FC<{
   resetGame: () => void;
   resetTimer: () => void;
   forceGameOver: () => void;
+  gameStarted: boolean;
 }> = ({
   correctWord,
   numberOfGuesses,
   resetGame,
   resetTimer,
   forceGameOver,
+  gameStarted,
 }) => {
   const [currentRow, setCurrentRow] = useState(0);
   const [guess, setGuess] = useState("");
   const [pastGuesses, setPastGuesses] = useState<string[]>([]);
+  const focusedDiv = useRef<HTMLDivElement>();
+
   const [incorrectGuess, setIncorrectGuess] = useState(false);
   const [gameWon, setGameWon] = useState(false);
 
   const submitGuess = () => {
-    if (guess.length != correctWord.length) return;
+    if (guess.length != correctWord.length || !gameStarted) return;
     if (!isValidGuess(guess)) {
       setIncorrectGuess(true);
       setTimeout(() => {
@@ -57,7 +57,7 @@ const Game: React.FC<{
   };
 
   const handleCharacterEnter = (key: string) => {
-    if (gameWon) return;
+    if (gameWon || !gameStarted) return;
     if (key == "Enter") {
       submitGuess();
     } else if (key == "Backspace" || key == "back") {
@@ -79,11 +79,16 @@ const Game: React.FC<{
     setCurrentRow(0);
   }, [correctWord]);
 
+  useEffect(() => {
+    focusedDiv.current?.focus();
+  });
+
   return (
     <div
       className=" w-full text-center flex flex-col items-center outline-none"
       onKeyDown={(e) => handleCharacterEnter(e.key)}
       tabIndex={0}
+      ref={focusedDiv}
     >
       <div className="h-full flex justify-between flex-col">
         <GameBoard

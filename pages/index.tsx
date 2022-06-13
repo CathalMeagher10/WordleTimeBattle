@@ -130,6 +130,7 @@ const Home = () => {
               correctWord={data?.correctWord}
               resetTimer={() => setTimer(30)}
               forceGameOver={() => setTimer(0)}
+              gameStarted={!isOpen}
             />
           )}
         </div>
