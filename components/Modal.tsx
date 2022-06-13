@@ -23,20 +23,20 @@ const Modal: React.FC<{ setIsOpen: (isOpen: boolean) => void }> = ({
             <li>Get as many guesses correct in a row!</li>
             <hr></hr>
 
-            <p className="font-bold mt-2 text-lg">EXAMPLE</p>
+            <li className="font-bold mt-2 text-lg">EXAMPLE</li>
             <ColouredBoardRow guess="helps" correctWord="tries" />
-            <p>
+            <li>
               The letter <span className="font-bold">E</span> is in the word but
               in the <span className="font-bold">incorrect position</span>
-            </p>
-            <p>
+            </li>
+            <li>
               The letter <span className="font-bold">S</span> is in the word and
               in the <span className="font-bold">correct position</span>
-            </p>
-            <p>
+            </li>
+            <li>
               The letters <span className="font-bold">H L and P</span> are{" "}
               <span className="font-bold">not</span> in the word
-            </p>
+            </li>
           </ul>
           <hr></hr>
           <button
