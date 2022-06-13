@@ -77,63 +77,58 @@ const Home = () => {
     timerActive.current = !isOpen;
   }, [isOpen]);
   return (
-    <Html lang="en">
-      <Head>
-        <title>Wordle Time Battle</title>
-      </Head>
-      <div className="h-full w-full flex  bg-gray-700 items-center flex-col text-center">
-        {isOpen && <Modal setIsOpen={setIsOpen} />}
+    <div className="h-full w-full flex  bg-gray-700 items-center flex-col text-center">
+      {isOpen && <Modal setIsOpen={setIsOpen} />}
 
-        <div className="flex flex-col h-full">
-          {timer > 0 && (
-            <div className="flex items-center justify-center text-center flex-col">
-              <div className="flex flex-row">
-                <h1 className="font-bold text-white inline text-4xl mt-1 mr-1">
-                  Wordle
-                </h1>
-
-                <QuestionMarkCircleIcon
-                  className="mt-[0.8rem] w-7 h-7 cursor-pointer text-white"
-                  onClick={() => setIsOpen(true)}
-                />
-              </div>
-
-              <h1
-                style={{ color: getTimerColor(timer) }}
-                className={`text-2xl  font-bold`}
-              >
-                {timer}
+      <div className="flex flex-col h-full">
+        {timer > 0 && (
+          <div className="flex items-center justify-center text-center flex-col">
+            <div className="flex flex-row">
+              <h1 className="font-bold text-white inline text-4xl mt-1 mr-1">
+                Wordle
               </h1>
+
+              <QuestionMarkCircleIcon
+                className="mt-[0.8rem] w-7 h-7 cursor-pointer text-white"
+                onClick={() => setIsOpen(true)}
+              />
             </div>
-          )}
 
-          <div className="grow justify-center flex items-center">
-            {isLoading ? (
-              <h1>loading...</h1>
-            ) : isError ? (
-              <h1 className="text-red-400 text-2xl font-bold">
-                An error occured. Please refresh
-              </h1>
-            ) : timer <= 0 ? (
-              <GameOverScreen
-                startNewGame={startNewGame}
-                correctWord={data.correctWord}
-                streak={pastWords.current.length - 1}
-              />
-            ) : (
-              <Game
-                resetGame={resetGame}
-                numberOfGuesses={6}
-                correctWord={data?.correctWord}
-                resetTimer={() => setTimer(30)}
-                forceGameOver={() => setTimer(0)}
-                gameStarted={!isOpen}
-              />
-            )}
+            <h1
+              style={{ color: getTimerColor(timer) }}
+              className={`text-2xl  font-bold`}
+            >
+              {timer}
+            </h1>
           </div>
+        )}
+
+        <div className="grow justify-center flex items-center">
+          {isLoading ? (
+            <h1>loading...</h1>
+          ) : isError ? (
+            <h1 className="text-red-400 text-2xl font-bold">
+              An error occured. Please refresh
+            </h1>
+          ) : timer <= 0 ? (
+            <GameOverScreen
+              startNewGame={startNewGame}
+              correctWord={data.correctWord}
+              streak={pastWords.current.length - 1}
+            />
+          ) : (
+            <Game
+              resetGame={resetGame}
+              numberOfGuesses={6}
+              correctWord={data?.correctWord}
+              resetTimer={() => setTimer(30)}
+              forceGameOver={() => setTimer(0)}
+              gameStarted={!isOpen}
+            />
+          )}
         </div>
       </div>
-    </Html>
+    </div>
   );
 };
 
