@@ -20,7 +20,7 @@ const Game: React.FC<{
   const [currentRow, setCurrentRow] = useState(0);
   const [guess, setGuess] = useState("");
   const [pastGuesses, setPastGuesses] = useState<string[]>([]);
-  const focusedDiv = useRef<HTMLDivElement>();
+  const focusedDiv = useRef<HTMLDivElement>(null);
 
   const [incorrectGuess, setIncorrectGuess] = useState(false);
   const [gameWon, setGameWon] = useState(false);
