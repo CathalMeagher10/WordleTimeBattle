@@ -19,15 +19,18 @@ const Home = () => {
   const numberOfGuesses = 6;
   const [correctWord, setCorrectWord] = useState("     ");
   const [timer, setTimer] = useState(30);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const pastWords = useRef<string[]>([]);
   const timerActive = useRef<boolean>(false);
 
   const fetchCorrectWord = async () => {
-    const { data } = await axios.get(`${process.env.ROOT}/api/getCorrectWord`, {
-      params: { pastWords: pastWords.current },
-    });
+    const { data } = await axios.get(
+      `${window.location.href}/api/getCorrectWord`,
+      {
+        params: { pastWords: pastWords.current },
+      }
+    );
 
     return data;
   };
@@ -69,10 +72,7 @@ const Home = () => {
       }
     }, 1000);
 
-    if (!localStorage.getItem("init")) {
-      setIsOpen(true);
-      localStorage.setItem("init", "true");
-    }
+    console.log(window.location);
   }, []);
 
   const startNewGame = () => {
