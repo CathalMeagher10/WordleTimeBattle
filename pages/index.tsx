@@ -7,7 +7,6 @@ import { useQuery, QueryClientProvider, QueryClient } from "react-query";
 import { QuestionMarkCircleIcon } from "@heroicons/react/solid";
 import Modal from "../components/Modal";
 import { getTimerColor } from "../utils/gameHelpers";
-import { Html, Head } from "next/document";
 const Home = () => {
   const numberOfGuesses = 6;
   const [correctWord, setCorrectWord] = useState("     ");
